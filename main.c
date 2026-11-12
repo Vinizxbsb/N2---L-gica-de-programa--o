@@ -232,6 +232,129 @@ void exibirRelatorio(Atendimento atendimentos[], int contador) {
            contagemServicos[1], contagemServicos[2], contagemServicos[3], contagemServicos[4]);
 }
 
+void alterarTutor(Tutor *t){
+    printf("Digite o novo nome: ");
+    scanf(" %[^\n]", t->nomeCompleto);
+
+    printf("Digite o novo telefone: ");
+    scanf(" %[^\n]", t->telefone);
+
+    printf("\nTutor alterado com sucesso!\n");
+}
+
+void buscarAlterarTutor(Tutor tutores[], int totalTutores){
+    int codigo, i;
+
+    if(totalTutores == 0){
+        printf("\nNenhum tutor cadastrado!\n");
+        return;
+    }
+
+    printf("Digite o codigo do tutor: ");
+    scanf("%d", &codigo);
+
+    for(i = 0; i < totalTutores; i++){
+        if(tutores[i].codigo == codigo){
+            alterarTutor(&tutores[i]);
+            return;
+        }
+    }
+
+    printf("\nTutor nao encontrado!\n");
+}
+
+void listarTutores(Tutor *tutores, int totalTutores){
+    int i;
+    if(totalTutores == 0){
+        printf("\nNenhum tutor cadastrado!\n");
+        return;
+    }
+    printf("\n===== LISTA DE TUTORES =====\n");
+    for(i = 0; i < totalTutores; i++){
+        printf("\nCodigo: %d\n", tutores[i].codigo);
+        printf("Nome: %s\n", tutores[i].nomeCompleto);
+        printf("CPF: %s\n", tutores[i].cpf);
+        printf("Telefone: %s\n", tutores[i].telefone);
+        printf("--------------------------\n");
+    }
+}
+
+void listarAnimaisPorTutor(Animal *animais, int totalAnimais, Tutor *tutores, int totalTutores){
+    int codigoTutor, i;
+    int tutorEncontrado = 0;
+    int encontrouAnimal = 0;
+
+    if(totalTutores == 0){
+        printf("\nNenhum tutor cadastrado!\n");
+        return;
+    }
+
+    if(totalAnimais == 0){
+        printf("\nNenhum animal cadastrado!\n");
+        return;
+    }
+
+    printf("\nDigite o codigo do tutor: ");
+    scanf("%d", &codigoTutor);
+
+    for(i = 0; i < totalTutores; i++){
+        if(tutores[i].codigo == codigoTutor){
+            tutorEncontrado = 1;
+            break;
+        }
+    }
+
+    if(tutorEncontrado == 0){
+        printf("\nTutor nao encontrado!\n");
+        return;
+    }
+
+    printf("\n===== ANIMAIS DO TUTOR %d =====\n", codigoTutor);
+    for(i = 0; i < totalAnimais; i++){
+        if(animais[i].codigoTutor == codigoTutor){
+            printf("\nCodigo: %d\n", animais[i].codigo);
+            printf("Nome: %s\n", animais[i].nome_pet);
+            printf("Especie: %s\n", animais[i].especie);
+            printf("Idade: %d\n", animais[i].idade_pet);
+            printf("--------------------------\n");
+            encontrouAnimal = 1;
+        }
+    }
+
+    if(encontrouAnimal == 0){
+        printf("\nEste tutor nao possui animais cadastrados.\n");
+    }
+}
+
+void buscarTutor(Tutor *tutores, int totalTutores){
+    int codigo, i;
+    int encontrado = 0;
+
+    if(totalTutores == 0){
+        printf("\nNenhum tutor cadastrado!\n");
+        return;
+    }
+
+    printf("\nDigite o codigo do tutor que deseja buscar: ");
+    scanf("%d", &codigo);
+
+    for(i = 0; i < totalTutores; i++){
+        if(tutores[i].codigo == codigo){
+            printf("\n===== TUTOR ENCONTRADO =====\n");
+            printf("Codigo: %d\n", tutores[i].codigo);
+            printf("Nome: %s\n", tutores[i].nomeCompleto);
+            printf("CPF: %s\n", tutores[i].cpf);
+            printf("Telefone: %s\n", tutores[i].telefone);
+            encontrado = 1;
+            break;
+        }
+    }
+
+    if(encontrado == 0){
+        printf("\nTutor nao encontrado!\n");
+    }
+}
+
 int main(){
     Tutor tutores[MAX_TUTORES];    
     Animal animais[MAX_ANIMAIS];   
@@ -258,19 +381,19 @@ int main(){
                 cadastrarAnimal(animais, &totalAnimais, tutores, totalTutores); 
                 break;
             case 3:
-                // Função para listar tutores.
+                listarTutores(tutores, totalTutores);
                 break;
             case 4:
                 listarAnimais(animais, totalAnimais); 
                 break;
             case 5:
-                // Função para listar animais por tutor.
+                listarAnimaisPorTutor(animais, totalAnimais, tutores, totalTutores);
                 break;
             case 6:
-                // Função para buscar tutor.
+                buscarTutor(tutores, totalTutores);
                 break;
             case 7:
-                // Função para alterar dados do tutor.
+                buscarAlterarTutor(tutores, totalTutores);
                 break;
             case 8:
                 buscarAnimal(animais, totalAnimais); 
