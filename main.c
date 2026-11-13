@@ -29,9 +29,6 @@ typedef struct {
     float valorTotal;
 } Atendimento;
 
-// ==========================================
-// FUNCOES UTILITARIAS DE ENTRADA E VALIDACAO
-// ==========================================
 
 void limparBuffer() {
     int c;
@@ -116,9 +113,6 @@ int stringsIguaisIgnoreCase(const char *s1, const char *s2) {
     return *s1 == *s2;
 }
 
-// ==========================================
-// FUNCOES AUXILIARES DE BUSCA E EXIBICAO
-// ==========================================
 
 int buscarIndiceTutor(const Tutor *tutores, int totalTutores, int codigo) {
     for (int i = 0; i < totalTutores; i++) {
@@ -164,9 +158,6 @@ void imprimirAnimal(const Animal *a) {
     printf("--------------------------\n");
 }
 
-// ==========================================
-// FUNCOES DO SISTEMA
-// ==========================================
 
 void menu() {
     printf("\n===== Menu =====\n");
